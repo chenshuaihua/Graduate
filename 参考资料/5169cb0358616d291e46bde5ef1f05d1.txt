@@ -1,0 +1,171 @@
+%我用Matlab,db4/4小波做的图像分解及其数据统计分析%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%利用Daubechies4/4小波将信号作小波分解,在此选用 
+%的db小波其系数有8个 
+clear; 
+Fi=imread('cameraman.tif');    %读取标准图像carmeraman图 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Daubechies4/4小波系数%%%%%%%%%%%%%%%%%% 
+p1=[-0.107148901418,-0.041910965125,0.703739068656,1.136658243408,... 
+       0.421234534204,-0.140317624179,-0.017824701442,0.045570345896]; 
+p2=[-0.107148901418,-0.041910965125,0.703739068656,1.136658243408,... 
+        0.421234534204,-0.140317624179,-0.017824701442,0.045570345896]; 
+%%%%%%%%%%%%%%%%%%%%%%计算分解序列%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+for i=1:8               
+    q1(i)=(-1)^(i)*p1(9-i); 
+end 
+a1=1/2*p1;b1=1/2*q1;             %----求出分解序列an,bn--% 
+for i=1:8             
+    q2(i)=(-1)^(i)*p2(9-i); 
+end 
+a2=1/2*p2;b2=1/2*q2;             %----求出分解序列an,bn--% 
+%%%%%%%%%%%%%%%%%%%%%%%%采用顺序绵量积小波分解算法STWD%%%%%% 
+h_len=size(Fi,1);         % Fi的行数 
+N=log2(h_len);                %%%求出最多能分解的层数 
+L1=length(p1);L2=length(p2);  
+disp('为了使分解的图像还可以辨认分解层数不要太高<=5)'); 
+M=input('请输入你要分解的的层数:'); 
+figure(1);imshow(Fi);title('原始图像'); 
+Fi=double(Fi);   %双精度的数才能和后边的系数进行运算 
+for k=N-1:-1:N-M 
+    for n=1:2^k 
+        for m=1:2^k 
+            c=0;d1=0;d2=0;d3=0; 
+            for h_lev=2*n:2*n+7 
+                   e1=0;e2=0; 
+                   if h_lev<=2^(k+1) 
+                     for v_lev=2*m:2*m+7 
+                       if v_lev<=2^(k+1) 
+                          e1=e1+a2(v_lev-2*m+1)*Fi(h_lev,v_lev);   % 垂直方向上的卷积  e1,e2为中间数值 
+                          e2=e2+b2(v_lev-2*m+1)*Fi(h_lev,v_lev);  
+                      end 
+                     end 
+                  end 
+                   c=c+a1(h_lev-2*n+1)*e1;               %水平方向的卷积  
+                   d1=d1+a1(h_lev-2*n+1)*e2; 
+                   d2=d2+b1(h_lev-2*n+1)*e1; 
+                   d3=d3+b1(h_lev-2*n+1)*e2;  
+             end 
+               Fi(n,m)=c;       %LL部分分量 
+               g(n,m,1)=d1;     %HL部分分量 
+               g(n,m,2)=d2;     %LH部分分量 
+               g(n,m,3)=d3;     %HH部分分量 
+           end 
+       end 
+figure(N+1-k); 
+  switch N-k 
+    case 1 
+        sta=zeros(16,5); 
+     for i=1:3                                         %第一层分解后的高频数据统计 
+         sta(i,1)=min(min(g(1:2^k,1:2^k,i))); 
+         sta(i,2)=max(max(g(1:2^k,1:2^k,i))); 
+         sta(i,3)=mean2(g(1:2^k,1:2^k,i)); 
+         sta(i,4)=std2(g(1:2^k,1:2^k,i)); 
+         sta(i,5)=sum(sum(abs(g(1:2^k,1:2^k,i)))); 
+     end 
+         sta(16,1)=min(min(Fi(1:2^k,1:2^k)));                     %第五次分解后最低频部分数据统计 
+         sta(16,2)=max(max(Fi(1:2^k,1:2^k))); 
+         sta(16,3)=mean2(Fi(1:2^k,1:2^k)); 
+         sta(16,4)=std2(Fi(1:2^k,1:2^k)); 
+         sta(16,5)=sum(sum(abs(Fi(1:2^k,1:2^k)))); 
+        Fi1=uint8(Fi(1:2^k,1:2^k));g11=uint8(g(1:2^k,1:2^k,1));   %将双精度改为0--255范围的数据用来显示图形 
+        g12=uint8(g(1:2^k,1:2^k,2));g13=uint8(g(1:2^k,1:2^k,3));   %图形显示部分 
+        Fout1=[Fi1,g11;g12,g13]; 
+        imshow(Fout1); 
+    case 2                                              
+     for i=4:6                                                %第二次分解后高频部分数据统计 
+         sta(i,1)=min(min(g(1:2^k,1:2^k,i-3))); 
+         sta(i,2)=max(max(g(1:2^k,1:2^k,i-3))); 
+         sta(i,3)=mean2(g(1:2^k,1:2^k,i-3)); 
+         sta(i,4)=std2(g(1:2^k,1:2^k,i-3)); 
+         sta(i,5)=sum(sum(abs(g(1:2^k,1:2^k,i-3)))); 
+     end 
+         sta(16,1)=min(min(Fi(1:2^k,1:2^k)));                     %第五次分解后最低频部分数据统计 
+         sta(16,2)=max(max(Fi(1:2^k,1:2^k))); 
+         sta(16,3)=mean(mean(Fi(1:2^k,1:2^k))); 
+         sta(16,4)=std2(Fi(1:2^k,1:2^k)); 
+         sta(16,5)=sum(sum(abs(Fi(1:2^k,1:2^k)))); 
+        Fi2=uint8(Fi(1:2^k,1:2^k));g21=uint8(g(1:2^k,1:2^k,1)); 
+        g22=uint8(g(1:2^k,1:2^k,2));g23=uint8(g(1:2^k,1:2^k,3)); 
+        Fout1=[Fi2,g21;g22,g23]; 
+        Fout2=[Fout1,g11;g12,g13]; 
+        imshow(Fout2);      
+    case 3 
+        for i=7:9                                            %第三次分解后高频部分数据统计 
+         sta(i,1)=min(min(g(1:2^k,1:2^k,i-6))); 
+         sta(i,2)=max(max(g(1:2^k,1:2^k,i-6))); 
+         sta(i,3)=mean2(g(1:2^k,1:2^k,i-6)); 
+         sta(i,4)=std2(g(1:2^k,1:2^k,i-6)); 
+         sta(i,5)=sum(sum(abs(g(1:2^k,1:2^k,i-6)))); 
+     end 
+         sta(16,1)=min(min(Fi(1:2^k,1:2^k)));                     %第五次分解后最低频部分数据统计 
+         sta(16,2)=max(max(Fi(1:2^k,1:2^k))); 
+         sta(16,3)=mean2(Fi(1:2^k,1:2^k)); 
+         sta(16,4)=std2(Fi(1:2^k,1:2^k)); 
+         sta(16,5)=sum(sum(abs(Fi(1:2^k,1:2^k)))); 
+        Fi3=uint8(Fi(1:2^k,1:2^k));g31=uint8(g(1:2^k,1:2^k,1)); 
+        g32=uint8(g(1:2^k,1:2^k,2));g33=uint8(g(1:2^k,1:2^k,3)); 
+        Fout1=[Fi3,g31;g32,g33]; 
+        Fout2=[Fout1,g21;g22,g23]; 
+        Fout3=[Fout2,g11;g12,g13]; 
+        imshow(Fout3);     
+   case 4       
+       for i=10:12                                              %第四次分解后高频部分数据统计 
+         sta(i,1)=min(min(g(1:2^k,1:2^k,i-9))); 
+         sta(i,2)=max(max(g(1:2^k,1:2^k,i-9))); 
+         sta(i,3)=mean2(g(1:2^k,1:2^k,i-9)); 
+         sta(i,4)=std2(g(1:2^k,1:2^k,i-9)); 
+         sta(i,5)=sum(sum(abs(g(1:2^k,1:2^k,i-9)))); 
+     end 
+         sta(16,1)=min(min(Fi(1:2^k,1:2^k)));                     %第五次分解后最低频部分数据统计 
+         sta(16,2)=max(max(Fi(1:2^k,1:2^k))); 
+         sta(16,3)=mean2(Fi(1:2^k,1:2^k)); 
+         sta(16,4)=std2(Fi(1:2^k,1:2^k)); 
+         sta(16,5)=sum(sum(abs(Fi(1:2^k,1:2^k)))); 
+        Fi4=uint8(Fi(1:2^k,1:2^k));g41=uint8(g(1:2^k,1:2^k,1));  %图形显示部分 
+        g42=uint8(g(1:2^k,1:2^k,2));g43=uint8(g(1:2^k,1:2^k,3)); 
+        Fout1=[Fi4,g41;g42,g43]; 
+        Fout2=[Fout1,g31;g32,g33]; 
+        Fout3=[Fout2,g21;g22,g23]; 
+        Fout4=[Fout3,g11;g12,g13]; 
+        imshow(Fout4);  
+   case 5 
+     for i=13:15                                                  %第五次分解后高频部分数据统计 
+         sta(i,1)=min(min(g(1:2^k,1:2^k,i-12))); 
+         sta(i,2)=max(max(g(1:2^k,1:2^k,i-12))); 
+         sta(i,3)=mean2(g(1:2^k,1:2^k,i-12)); 
+         sta(i,4)=std2(g(1:2^k,1:2^k,i-12)); 
+         sta(i,5)=sum(sum(abs(g(1:2^k,1:2^k,i-12)))); 
+     end 
+         sta(16,1)=min(min(Fi(1:2^k,1:2^k)));                     %第五次分解后最低频部分数据统计 
+         sta(16,2)=max(max(Fi(1:2^k,1:2^k))); 
+         sta(16,3)=mean2(Fi(1:2^k,1:2^k)); 
+         sta(16,4)=std2(Fi(1:2^k,1:2^k)); 
+         sta(16,5)=sum(sum(abs(Fi(1:2^k,1:2^k)))); 
+        Fi5=uint8(Fi(1:2^k,1:2^k));g51=uint8(g(1:2^k,1:2^k,1));   %将双精度改为0--255范围的数据用来显示图形 
+        g52=uint8(g(1:2^k,1:2^k,2));g53=uint8(g(1:2^k,1:2^k,3)); 
+        Fout1=[Fi5,g51;g52,g53]; 
+        Fout2=[Fout1,g41;g42,g43]; 
+        Fout3=[Fout2,g31;g32,g33]; 
+        Fout4=[Fout3,g21;g22,g23]; 
+        Fout5=[Fout4,g11;g12,g13]; 
+        imshow(Fout4);     
+end 
+title('再次分解后图像');     
+end 
+disp('以下是图像分解后的统计数据'); 
+disp('Layer   min            max           mean          var              pow     '); 
+disp(['HL1 ',num2str(sta(1,:))]);  
+disp(['LH1 ',num2str(sta(2,:))]);  
+disp(['HH1 ',num2str(sta(3,:))]);  
+disp(['HL2 ',num2str(sta(4,:))]);  
+disp(['LH2 ',num2str(sta(5,:))]); 
+disp(['HH2 ',num2str(sta(6,:))]);  
+disp(['HL3 ',num2str(sta(7,:))]); 
+disp(['LH3 ',num2str(sta(8,:))]); 
+disp(['HH3 ',num2str(sta(9,:))]);  
+disp(['HL4',num2str(sta(10,:))]); 
+disp(['LH4 ',num2str(sta(11,:))]); 
+disp(['HH4 ',num2str(sta(12,:))]);  
+disp(['HL5 ',num2str(sta(13,:))]); 
+disp(['LH5 ',num2str(sta(14,:))]); 
+disp(['HH5 ',num2str(sta(15,:))]);  
+disp('最后一次分解的最低频部分的统计数据'); 

@@ -2,22 +2,22 @@ clear
 clc
 
 %%%%%%%读取数据
-xa = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\D_biaozhuncha.txt");
+xa = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\A_biaozhuncha.txt");
 xb = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha.txt");
 
-xc = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\D_biaozhuncha_d1.txt");
+xc = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\A_biaozhuncha_d1.txt");
 xd = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d1.txt");
 
-xe = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\D_biaozhuncha_d2.txt");
+xe = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\A_biaozhuncha_d2.txt");
 xf = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d2.txt");
 
-xg = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\D_biaozhuncha_d3.txt");
+xg = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\A_biaozhuncha_d3.txt");
 xh = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d3.txt");
 
-xi = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\D_biaozhuncha_d4.txt");
+xi = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\A_biaozhuncha_d4.txt");
 xj = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d4.txt");
 
-xk = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\D_biaozhuncha_d5.txt");
+xk = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\A_biaozhuncha_d5.txt");
 xl = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d5.txt");
 
 
@@ -77,11 +77,12 @@ for i = 1:5
     fprintf(fid,'%.4f  %.4f  %.4f\r\n',acc,sen,spe);
     fclose(fid);
     
-%     figure;
-%     hold on;
-%     plot(predict_label,'r*');
-%     plot(label_test,'bo');
-%     title("DT对AE两组的分类结果（根据原始脑电信号的标准差）")
+    figure;
+    hold on;
+    plot(predict_label,'r*');
+    plot(label_test,'bo');
+    title("DT对AE两组的分类结果（根据原始脑电信号及CD1-CD5的标准差）")
+%%%%%以原始脑电信号的标准差加上d1-d5的作为特征向量
 
 end
 

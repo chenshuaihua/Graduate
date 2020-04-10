@@ -2,22 +2,22 @@ clear
 clc
 
 %%%%%%%读取数据
-xa = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\B_biaozhuncha.txt");
+xa = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\C_biaozhuncha.txt");
 xb = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha.txt");
 
-xc = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\B_biaozhuncha_d1.txt");
+xc = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\C_biaozhuncha_d1.txt");
 xd = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d1.txt");
 
-xe = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\B_biaozhuncha_d2.txt");
+xe = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\C_biaozhuncha_d2.txt");
 xf = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d2.txt");
 
-xg = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\B_biaozhuncha_d3.txt");
+xg = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\C_biaozhuncha_d3.txt");
 xh = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d3.txt");
 
-xi = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\B_biaozhuncha_d4.txt");
+xi = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\C_biaozhuncha_d4.txt");
 xj = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d4.txt");
 
-xk = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\B_biaozhuncha_d5.txt");
+xk = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\C_biaozhuncha_d5.txt");
 xl = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\标准差\E_biaozhuncha_d5.txt");
 
 
@@ -47,7 +47,7 @@ for i = 1:5
     label_test = label(test,:);
     model = fitctree(data_train,label_train,'Prune','on');
     predict_label= predict(model,data_test);
-    view(model,'Mode','graph');
+    %view(model,'Mode','graph');
     
     aa = 0;
     bb = 0;
@@ -81,7 +81,7 @@ for i = 1:5
 %     hold on;
 %     plot(predict_label,'r*');
 %     plot(label_test,'bo');
-%     title("DT对AE两组的分类结果（根据原始脑电信号的标准差）")
+%     title("DT对CE两组的分类结果（根据原始脑电信号及CD1-CD5的标准差）")
 
 end
 

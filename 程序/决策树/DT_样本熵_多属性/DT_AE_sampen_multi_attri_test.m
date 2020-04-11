@@ -40,7 +40,7 @@ for i = 1:5
     label_test = label(test,:);
     model = fitctree(data_train,label_train,'Prune','on');
     predict_label= predict(model,data_test);
-    view(model,'Mode','graph');
+    %view(model,'Mode','graph');
     
     aa = 0;
     bb = 0;
@@ -74,7 +74,7 @@ for i = 1:5
 %     hold on;
 %     plot(predict_label,'r*');
 %     plot(label_test,'bo');
-%     title("DT对AE两组的分类结果（根据原始脑电信号的样本熵）")
+%     title("DT对AE两组的分类结果（根据原始脑电信号及CD1-CD3的样本熵）")
 
 end
 

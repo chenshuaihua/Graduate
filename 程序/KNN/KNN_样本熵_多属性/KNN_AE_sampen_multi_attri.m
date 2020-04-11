@@ -14,12 +14,9 @@ x6 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\样本熵\E_sampen_d2.t
 x7 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\样本熵\A_sampen_d3.txt");
 x8 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\样本熵\E_sampen_d3.txt");
 
-x9 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\样本熵\A_sampen_d4.txt");
-x10 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\样本熵\E_sampen_d4.txt");
-
 
 %%%%%%%设置数据标签
-x = [x1 x3 x5 x7 x9;x2 x4 x6 x8 x10];
+x = [x1 x3 x5 x7 ;x2 x4 x6 x8 ];
 A = zeros(400,1);
 B = ones(400,1);
 label = [A;B];
@@ -74,7 +71,7 @@ for i = 1:5
 %     hold on;
 %     plot(predict_label,'r*');
 %     plot(label_test,'bo');
-%     title("KNN对AE两组的分类结果（根据原始脑电信号的样本熵）")
+%     title("KNN对AE两组的分类结果（根据原始脑电信号及CD1-CD3的样本熵）")
 
 end
 

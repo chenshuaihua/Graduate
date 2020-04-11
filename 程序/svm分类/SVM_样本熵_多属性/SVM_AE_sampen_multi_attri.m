@@ -37,7 +37,7 @@ for i = 1:5
     data_test = x(test,:);
     label_train = label(train,:);
     label_test = label(test,:);
-    model = svmtrain(label_train,data_train);
+    model = svmtrain(label_train,data_train,'-t 2 -c 1.2 -g 2.5');
     [predict_label,accuracy,dec_values] = svmpredict(label_test,data_test,model);
     
     

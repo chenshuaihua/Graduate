@@ -41,53 +41,14 @@ for j_gy=1:n
 end
 A_gy=repmat(A_gy,m,1);
 y = x./A_gy;
-indices = crossvalind('Kfold',m,5);
+
+data_train = [y(1:360,:);y(401:760,:)];
+data_test = [y(361:400,:);y(761:800,:)];
+label_train = [label(1:360,:);label(401:760,:)];
+label_test = [label(361:400,:);label(761:800,:)];
+[bestacc,bestc,bestg] = SVMcg(label_train,data_train,-5,5,-5,5,5,0.5,0.5,0.9);
+disp(bestc);
+disp(bestg);
 
 
-
-%%%%%%%%%%
-%%%%%%%%%  train和test都是逻辑值
-for i = 1:5
-    test = (indices == i);
-    train = ~test;
-    data_train = y(train,:);
-    data_test = y(test,:);
-    label_train = label(train,:);
-    label_test = label(test,:);
-    model = svmtrain(label_train,data_train,'-t 2 -c 32 -g 32');
-    [predict_label,accuracy,dec_values] = svmpredict(label_test,data_test,model);
-    
-    aa = 0;
-    bb = 0;
-    cc = 0;
-    dd = 0;
-    
-    for ss = 1:160
-        if (predict_label(ss) == label_test(ss) && label_test(ss)==0)
-            dd = dd+1;
-        elseif (predict_label(ss) ~= label_test(ss) && label_test(ss)==0)
-            bb = bb+1;
-        elseif (predict_label(ss) == label_test(ss) && label_test(ss)==1)
-            aa = aa+1;
-        elseif (predict_label(ss) ~= label_test(ss) && label_test(ss)==1)
-            cc = cc+1;
-        end
-    end
-    
-    sen = (aa/(aa+cc))*100;
-    spe = (dd/(bb+dd))*100;
-    disp(['Sensitivity:',num2str(sen),'%'])
-    disp(['Specificity:',num2str(spe),'%'])
-     disp(['准确度为:',num2str(accuracy(1)),'%'])
-    
-    fid = fopen('E:\大学\大四学年（2019-2020）\下学期\毕设\结果\SVM分类\标准差\test.txt','at');
-    fprintf(fid,'%.4f  %.4f  %.4f\r\n',accuracy(1),sen,spe);
-    fclose(fid);
-    
-%     figure;
-%     hold on;
-%     plot(predict_label,'r*');
-%     plot(label_test,'bo');
-%     title("支持向量机对BE两组的分类结果（根据原始脑电信号及CD1-CD5的标准差）")
-end
 

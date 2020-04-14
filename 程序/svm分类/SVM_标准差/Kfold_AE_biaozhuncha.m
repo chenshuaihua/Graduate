@@ -26,7 +26,7 @@ for i = 1:5
     label_test = label(test,:);
     model = svmtrain(label_train,data_train);
     [predict_label,accuracy,dec_values] = svmpredict(label_test,data_test,model);
-    
+    %%%%%%%%º∆À„accuracy°¢sensitivity∫Õspecificity
     aa = 0;
     bb = 0;
     cc = 0;

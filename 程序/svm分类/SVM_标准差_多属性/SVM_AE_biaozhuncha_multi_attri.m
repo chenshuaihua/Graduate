@@ -28,7 +28,7 @@ A = zeros(400,1);
 B = ones(400,1);
 label = [A;B];
 
-%%%%%%K折CV
+%%%%%%%%归一化
 [m,n] = size(x);
 a_gy=0;
 for j_gy=1:n
@@ -82,6 +82,8 @@ for i = 1:5
     fid = fopen('E:\大学\大四学年（2019-2020）\下学期\毕设\结果\SVM分类\标准差\test.txt','at');
     fprintf(fid,'%.4f  %.4f  %.4f\r\n',accuracy(1),sen,spe);
     fclose(fid);
+	
+
     
 %     figure;
 %     hold on;

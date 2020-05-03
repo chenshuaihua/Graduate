@@ -18,7 +18,7 @@ from vecstack import stacking
 
 names = ['class','AE_biaozhuncha','AE_biaozhuncha_d1','AE_biaozhuncha_d2','AE_biaozhuncha_d3','AE_biaozhuncha_d4','AE_biaozhuncha_d5']
 
-data = pd.read_csv(r'C:\Users\hasee\Desktop\新一轮毕设工作\AE-biaozhuncha-转csv-after-minmax.csv',header=None,names=names)
+data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\stacking\标准差\AE_biaozhuncha_after_norm.csv',header=None,names=names)
 
 label = data[['class']]
 

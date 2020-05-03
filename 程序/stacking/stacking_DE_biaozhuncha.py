@@ -18,7 +18,7 @@ from vecstack import stacking
 
 names = ['class','AE_biaozhuncha','AE_biaozhuncha_d1','AE_biaozhuncha_d2','AE_biaozhuncha_d3','AE_biaozhuncha_d4','AE_biaozhuncha_d5']
 
-data = pd.read_csv(r'C:\Users\hasee\Desktop\新一轮毕设工作\AE-biaozhuncha-转csv-after-minmax.csv',header=None,names=names)
+data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\stacking\标准差\DE_biaozhuncha_after_norm.csv',header=None,names=names)
 
 label = data[['class']]
 
@@ -27,7 +27,7 @@ sub_data = data.iloc[:,1:]
 sub_data_train,sub_data_test,label_train,label_test = train_test_split(sub_data,label,test_size = 0.2,random_state = 0)
 
 models = [
-    SVC(C=11.3137,kernel='rbf',degree=3,gamma=32,coef0=0.0,shrinking=True,probability=False,tol=0.001),
+    SVC(C=22.6274,kernel='rbf',degree=3,gamma=32,coef0=0.0,shrinking=True,probability=False,tol=0.001),
     
     KNeighborsClassifier(n_neighbors=9,weights='uniform',algorithm='auto',p=2,metric='minkowski',metric_params=None,radius=None)]
 

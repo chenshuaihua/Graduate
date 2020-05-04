@@ -15,8 +15,8 @@ from sklearn.svm import SVC  #导入SVC
 from sklearn.tree import DecisionTreeClassifier  #导入DT
 from vecstack import stacking
 
-
-names = ['class','AE_biaozhuncha','AE_biaozhuncha_d1','AE_biaozhuncha_d2','AE_biaozhuncha_d3','AE_biaozhuncha_d4','AE_biaozhuncha_d5']
+#种类，特征向量
+names = ['class','CE_biaozhuncha','CE_biaozhuncha_d1','CE_biaozhuncha_d2','CE_biaozhuncha_d3','CE_biaozhuncha_d4','CE_biaozhuncha_d5']
 
 data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\stacking\标准差\CE_biaozhuncha_after_norm.csv',header=None,names=names)
 

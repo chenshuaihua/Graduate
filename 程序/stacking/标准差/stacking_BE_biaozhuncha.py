@@ -18,7 +18,7 @@ from vecstack import stacking
 #种类，特征向量
 names = ['class','BE_biaozhuncha','BE_biaozhuncha_d1','BE_biaozhuncha_d2','BE_biaozhuncha_d3','BE_biaozhuncha_d4','BE_biaozhuncha_d5']
 
-data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\stacking\标准差\BE_biaozhuncha_after_norm.csv',header=None,names=names)
+data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\1\stacking\标准差\BE_biaozhuncha_after_norm.csv',index_col=False,header=None,names=names)
 
 label = data[['class']]
 
@@ -26,7 +26,7 @@ sub_data = data.iloc[:,1:]
 
 sub_data_train,sub_data_test,label_train,label_test = train_test_split(sub_data,label,test_size = 0.2,random_state = 0)
 
-models = [
+"""models = [
     SVC(C=32,kernel='rbf',degree=3,gamma=32,coef0=0.0,shrinking=True,probability=False,tol=0.001),
     
     KNeighborsClassifier(n_neighbors=9,weights='uniform',algorithm='auto',p=2,metric='minkowski',metric_params=None,radius=None)]
@@ -64,7 +64,7 @@ model = model.fit(S_train,label_train)
 y_pred = model.predict(S_test)
 
 
-print('预测结果：[%.8f]' % accuracy_score(label_test,y_pred))
+print('预测结果：[%.8f]' % accuracy_score(label_test,y_pred))"""
 
 
 

@@ -26,7 +26,7 @@ sub_data = data.iloc[:,1:]
 
 sub_data_train,sub_data_test,label_train,label_test = train_test_split(sub_data,label,test_size = 0.2,random_state = 0)
 
-models = [
+"""models = [
     SVC(C=32,kernel='rbf',degree=3,gamma=32,coef0=0.0,shrinking=True,probability=False,tol=0.001),
     
     KNeighborsClassifier(n_neighbors=9,weights='uniform',algorithm='auto',p=2,metric='minkowski',metric_params=None,radius=None)]
@@ -64,7 +64,7 @@ model = model.fit(S_train,label_train)
 y_pred = model.predict(S_test)
 
 
-print('预测结果：[%.8f]' % accuracy_score(label_test,y_pred))
+print('预测结果：[%.8f]' % accuracy_score(label_test,y_pred))"""
 
 
 

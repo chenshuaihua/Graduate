@@ -169,7 +169,7 @@ for i = 1:l
     
     y = [y1;y2;y3;y4;y5;y6;y7;y8;y9;y10;y11;y12;y13;y14;y15;y16;y17;y18;y19;y20;y21;y22;y23;y24;y25;y26;y27;y28;y29;y30];
     
-    fid = fopen('E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\样本熵\chb03epil_sampen_d2.txt','at');
+    fid = fopen('E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\样本熵\chb03_epil_sampen_d2.txt','at');
     
     for jj = 1:length(y)
         fprintf(fid,'%.4f\r\n',y(jj));

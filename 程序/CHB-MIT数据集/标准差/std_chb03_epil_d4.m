@@ -105,7 +105,7 @@ for i = 1:l
     [detda30_1,detda30_2,detda30_3,detda30_4,detda30_5] = detcoef(ca30,la30,[1,2,3,4,5]);
     
     
-   std_da1_4 = std(detda1_4);
+    std_da1_4 = std(detda1_4);
     std_da2_4 = std(detda2_4);
     std_da3_4 = std(detda3_4);
     std_da4_4 = std(detda4_4);

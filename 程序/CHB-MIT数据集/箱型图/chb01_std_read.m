@@ -1,6 +1,7 @@
 clc
 clear
 
+%%%%%读取数据
 x1 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\标准差\chb01_nor_biaozhuncha.txt");
 y1 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\标准差\chb01_epil_biaozhuncha.txt");
 
@@ -19,6 +20,7 @@ y5 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\标准差\c
 x6 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\标准差\chb01_nor_biaozhuncha_d5.txt");
 y6 = load("E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\标准差\chb01_epil_biaozhuncha_d5.txt");
 
+%%%%%绘制箱型图（2X3）
 figure
 subplot(2,3,1)
 boxplot([x1,y1],{'chb01间期脑电信号','chb01发作期脑电信号'})

@@ -23,14 +23,14 @@ for i = 1:5
     data_test = x(test,:);
     label_train = label(train,:);
     label_test = label(test,:);
-    model = svmtrain(label_train,data_train);
-    [predict_label,accuracy,dec_values] = svmpredict(label_test,data_test,model);
-    %%%%%%%%计算accuracy、sensitivity和specificity
+    model = fitcknn(data_train,label_train,'NumNeighbors',9);
+    predict_label= predict(model,data_test);
+   
+    
     aa = 0;
     bb = 0;
     cc = 0;
     dd = 0;
-    
     for ss = 1:96
         if (predict_label(ss) == label_test(ss) && label_test(ss)==0)
             dd = dd+1;
@@ -45,18 +45,19 @@ for i = 1:5
     
     sen = (aa/(aa+cc))*100;
     spe = (dd/(bb+dd))*100;
+    acc = ((aa+dd)/96)*100 ; 
+ 
+    disp(['Accuracy:',num2str(acc),'%'])
     disp(['Sensitivity:',num2str(sen),'%'])
     disp(['Specificity:',num2str(spe),'%'])
     
-    disp(['准确度为:',num2str(accuracy(1)),'%'])
-    
-    fid = fopen('E:\大学\大四学年（2019-2020）\下学期\毕设\结果\CHB-MIT数据集\SVM分类\标准差\test.txt','at');
-    fprintf(fid,'%.4f  %.4f  %.4f\r\n',accuracy(1),sen,spe);
+    fid = fopen('E:\大学\大四学年（2019-2020）\下学期\毕设\结果\CHB-MIT数据集\KNN分类\标准差\test.txt','at');
+    fprintf(fid,'%.4f  %.4f  %.4f\r\n',acc,sen,spe);
     fclose(fid);
     
 %     figure;
 %     hold on;
 %     plot(predict_label,'r*');
 %     plot(label_test,'bo');
-%     title("支持向量机对chb03的分类结果（根据CD3的标准差）")
+%     title("KNN对chb03的分类结果（根据CD3的标准差）")
 end

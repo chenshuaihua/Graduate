@@ -16,9 +16,9 @@ from sklearn.tree import DecisionTreeClassifier  #导入DT
 from vecstack import stacking
 
 #种类，特征向量
-names = ['class','chb01_biaozhuncha','chb01_biaozhuncha_d1','chb01_biaozhuncha_d2','chb01_biaozhuncha_d3','chb01_biaozhuncha_d4','chb01_biaozhuncha_d5']
+names = ['class','chb03_biaozhuncha','chb03_biaozhuncha_d1','chb03_biaozhuncha_d2','chb03_biaozhuncha_d3','chb03_biaozhuncha_d4','chb03_biaozhuncha_d5']
 
-data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\stacking\标准差\chb03_biaozhuncha.csv',index_col=False,header=None,names=names)
+data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\stacking\标准差\chb03_biaozhuncha.csv',header=None,names=names)
 
 label = data[['class']]
 

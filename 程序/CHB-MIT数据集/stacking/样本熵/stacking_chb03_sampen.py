@@ -18,7 +18,7 @@ from vecstack import stacking
 #种类，特征向量
 names = ['class','chb03_sampen','chb03_sampen_d3']
 
-data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\stacking\样本熵\chb03_sampen.csv',header=None,names=names)
+data = pd.read_csv(r'E:\大学\大四学年（2019-2020）\下学期\毕设\数据\CHB-MIT数据集\stacking\样本熵\chb03_sampen.csv',nrows=480,header=None,names=names)
 
 label = data[['class']]
 

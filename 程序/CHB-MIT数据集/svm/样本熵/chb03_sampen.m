@@ -58,5 +58,5 @@ for i = 1:5
 %     hold on;
 %     plot(predict_label,'r*');
 %     plot(label_test,'bo');
-%     title("支持向量机对chb03的分类结果（根据chb03原始脑电信号的标准差）")
+%     title("支持向量机对chb03的分类结果（根据chb03原始脑电信号的样本熵）")
 end

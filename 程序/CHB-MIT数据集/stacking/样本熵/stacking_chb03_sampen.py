@@ -9,7 +9,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import numpy as np 
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import roc_curve
+from sklearn.metrics import confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier #导入KNN
 from sklearn.svm import SVC  #导入SVC
 from sklearn.tree import DecisionTreeClassifier  #导入DT
@@ -64,7 +64,11 @@ model = model.fit(S_train,label_train)
 y_pred = model.predict(S_test)
 
 
+#计算混淆矩阵的值
+senpe = confusion_matrix(label_test,y_pred)
+
+#打印准确度
 print('预测结果：[%.8f]' % accuracy_score(label_test,y_pred))
 
-
-
+#打印混淆矩阵
+print(senpe)
